@@ -1,6 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {By} from '@angular/platform-browser';
+import {PostComponent} from './post/post.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,7 +11,7 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent, PostComponent
       ],
     }).compileComponents();
   });
@@ -30,6 +32,13 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('blog-frontend app is running!');
+    expect(compiled.querySelector('#title').textContent).toContain('On building intuition in heart and programming');
   });
+
+  // it('should contain a post',() => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement;
+  //   expect(compiled.query(By.css('#post-date')).innerText).toEqual()
+  // });
 });

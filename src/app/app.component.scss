@@ -1,0 +1,26 @@
+@import "src/styles.scss";
+
+:host {
+  display: grid;
+  grid-template-columns: inherit;
+  grid-template-rows: 1fr 8fr 1fr;
+  background-color: blueviolet;
+  grid-column: span 10;
+  height: 100vh;
+
+}
+
+app-post {
+  //height: 100%;
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: span 10;
+}
+
+app-post-list {
+  font-weight: bolder;
+  grid-row-start: 2;
+  grid-column-start: 9;
+  grid-column-end: span 2;
+
+}

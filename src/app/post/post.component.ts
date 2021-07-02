@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+  date?: string;
   constructor() { }
 
   ngOnInit(): void {
+
+    this.date = new Date().toDateString();
+
   }
 
 }

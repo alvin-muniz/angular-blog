@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import {By} from '@angular/platform-browser';
-import {PostComponent} from './post/post.component';
+import {PostDetailViewComponent} from './post-detail-view/post-detail-view.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -11,7 +11,7 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent, PostComponent
+        AppComponent, PostDetailViewComponent
       ],
     }).compileComponents();
   });

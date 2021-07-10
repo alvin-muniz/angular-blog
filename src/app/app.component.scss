@@ -4,23 +4,27 @@
   display: grid;
   grid-template-columns: inherit;
   grid-template-rows: 1fr 8fr 1fr;
-  background-color: blueviolet;
   grid-column: span 10;
   height: 100vh;
 
 }
 
-app-post {
-  //height: 100%;
-  grid-row-start: 2;
-  grid-column-start: 1;
-  grid-column-end: span 10;
+header {
+  padding: 25px;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
 }
 
+#circle-logo {
+  margin-right: 20px;
+}
+
+
+
+
+
 app-post-list {
-  font-weight: bolder;
-  grid-row-start: 2;
-  grid-column-start: 9;
-  grid-column-end: span 2;
+
 
 }

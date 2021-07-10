@@ -1,0 +1,41 @@
+:host {
+  height: 100%;
+  display:grid;
+  grid-template-rows: inherit;
+  grid-template-columns: inherit;
+
+}
+
+#post-date {
+  display: flex;
+  grid-row-start: 0;
+  grid-column-start: 1;
+  width: 250px;
+  position: relative;
+  top: 250px;
+  left: 0px;
+  background-color: black;
+  color: white;
+  transform-origin: 0 0;
+  transform: rotate(270deg);
+  align-items: center;
+  justify-content: center;
+}
+
+#title {
+  grid-row-start: 1;
+  grid-column-start: 2;
+  grid-column-end: span 4;
+  align-items: center;
+  justify-content: center;
+  font-weight: 100;
+
+}
+
+
+#content {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  font-weight: 100;
+
+}

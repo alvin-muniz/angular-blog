@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostComponent } from './post.component';
+import { PostDetailViewComponent } from './post-detail-view.component';
 import {By} from '@angular/platform-browser';
 
 describe('PostComponent', () => {
-  let component: PostComponent;
-  let fixture: ComponentFixture<PostComponent>;
+  let component: PostDetailViewComponent;
+  let fixture: ComponentFixture<PostDetailViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostComponent ]
+      declarations: [ PostDetailViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostComponent);
+    fixture = TestBed.createComponent(PostDetailViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

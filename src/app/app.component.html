@@ -1,4 +1,5 @@
 <header>
+  <div class="logo">
   <canvas id="circle-logo"
           width="60"
           height="60"
@@ -7,8 +8,11 @@
           border-radius: 50px;
 ">
   </canvas>
-  The Intuitive Programmer
-
-  <p *ngIf="user">Hello {{user.username}}</p>
+    <p>The Intuitive Programmer</p>
+  </div>
+  <div *ngIf="user" class="login-display">
+  <p >Hello {{user.username}}</p>
+    <button >Logout</button>
+  </div>
 </header>
 <router-outlet></router-outlet>

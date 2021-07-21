@@ -1,30 +1,42 @@
 @import "src/styles.scss";
 
+
 :host {
   display: grid;
   grid-template-columns: inherit;
   grid-template-rows: 1fr 8fr 1fr;
-  grid-column: span 10;
+  //grid-column: span 10;
   height: 100vh;
 
 }
 
 header {
-  padding: 25px;
   display: flex;
   flex-direction: row;
   height: 50px;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.logo p{
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.login-display {
+  align-self: end;
 }
 
 #circle-logo {
   margin-right: 20px;
 }
 
-
-
-
+.logo {
+  width: 75px;
+  display: flex;
+  align-items: center;
+}
 
 app-post-list {
-
 
 }

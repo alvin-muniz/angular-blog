@@ -7,6 +7,9 @@ import { PostDetailViewComponent } from './post-detail-view/post-detail-view.com
 import { PostListComponent } from './post-list/post-list.component';
 import { AdminComponent } from './admin/admin.component';
 import { ContentComponent } from './content/content.component';
+import { LoginComponent } from './admin/login/login.component';
+import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { ContentComponent } from './content/content.component';
     PostDetailViewComponent,
     PostListComponent,
     AdminComponent,
-    ContentComponent
+    ContentComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

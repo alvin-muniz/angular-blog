@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PostDetailViewComponent } from './post-detail-view.component';
 import {By} from '@angular/platform-browser';
+import {AppComponent} from '../app.component';
 
 describe('PostComponent', () => {
   let component: PostDetailViewComponent;

@@ -1,1 +1,5 @@
 <p>admin works!</p>
+<h1 *ngIf="user; else login">Logged in as {{user.username}}</h1>
+<ng-template #login>
+<app-login></app-login>
+</ng-template>

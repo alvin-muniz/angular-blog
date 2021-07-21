@@ -1,0 +1,8 @@
+:host {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: subgrid;
+  grid-column: span 10;
+  height: 100%;
+  width: 100%
+}

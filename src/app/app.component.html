@@ -1,4 +1,5 @@
 <header>
+  <div class="header-content">
   <div class="logo">
   <canvas id="circle-logo"
           width="60"
@@ -13,6 +14,7 @@
   <div *ngIf="user" class="login-display">
   <p >Hello {{user.username}}</p>
     <button (click)="logout()" >Logout</button>
+  </div>
   </div>
 </header>
 <router-outlet></router-outlet>

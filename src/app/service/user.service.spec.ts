@@ -46,11 +46,20 @@ describe('UserService', () => {
     spyOn(userService, 'storeLoggedInUser');
     const loginRequest = {username: 'alvin', password: '12345'};
     let actualUser: UserModel | undefined;
-    userService.authenticate(loginRequest).subscribe(fetchedUser => (actualUser = fetchedUser));
+    userService.authenticate(loginRequest).subscribe(authToken =>
+    {
+      actualUser = {
+        username: loginRequest.username,
+        password: loginRequest.password,
+        token: authToken,
+        id: 1
+      } as UserModel;
+    });
+
     const req = http.expectOne({method: 'POST', url: 'http://localhost:9092/auth/users/login'});
     expect(req.request.body).toEqual(loginRequest);
-    req.flush(user);
-    expect(actualUser).withContext('The observable should emit the user').toBe(user);
+    req.flush('eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo');
+    expect(actualUser).withContext('The observable should emit the user').toEqual(user);
     expect(userService.storeLoggedInUser).toHaveBeenCalledWith(user);
   });
 

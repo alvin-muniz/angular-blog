@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {UserModel} from '../api-interface/user.model';
 import {UserService} from '../service/user.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin',

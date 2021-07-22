@@ -11,11 +11,17 @@
 }
 
 header {
+  height: 110px;
+  width: 100vw;
+  background-color: black;
+  color: white;
+}
+
+.header-content {
   display: flex;
   flex-direction: row;
-  height: 50px;
-  width: 100vw;
   justify-content: space-between;
+  padding-left: 20px;
 }
 
 .logo p{

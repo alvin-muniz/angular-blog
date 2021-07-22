@@ -20,6 +20,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userEventsSubscription = this.userService.userEvents.subscribe(user => (this.user = user));
+    this.userService.retrieveUser();
   }
 
   ngOnDestroy(): void {

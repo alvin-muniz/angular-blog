@@ -19,10 +19,15 @@ export class AppComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.userEventsSubscription = this.userService.userEvents.subscribe(user => (this.user = user));
+    this.userService.retrieveUser();
   }
 
   ngOnDestroy(): void {
     this.userEventsSubscription?.unsubscribe();
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
 }

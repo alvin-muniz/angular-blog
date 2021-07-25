@@ -13,6 +13,16 @@ nav {
   width: 250px;
 }
 
+nav a {
+  font-size: xx-large;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  background-color: yellow;
+  display: flex;
+}
+
 .container {
   display: flex;
   flex-direction: row;

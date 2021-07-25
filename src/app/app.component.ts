@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy{
     this.userEventsSubscription?.unsubscribe();
   }
 
-  logout() {
+  logout(): void {
     this.userService.logout();
   }
 

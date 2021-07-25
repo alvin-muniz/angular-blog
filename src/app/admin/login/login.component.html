@@ -1,12 +1,16 @@
-<h1>Log in</h1>
 
-<form (submit)="authenticate()" name="loginForm" #loginForm="ngForm">
+<form id="login-form" (submit)="authenticate()" name="loginForm"
+      #loginForm="ngForm">
+  <span class="field-label">Username:</span>
   <input name="username" type="text"
          required [(ngModel)]="loginRequest.username"
-         #username="ngModel">
+         #username="ngModel"
+>
 
+  <span class="field-label">Password:</span>
   <input name="password" type="password"
          required [(ngModel)]="loginRequest.password"
-         #password="ngModel" >
+         #password="ngModel"
+         >
   <button type="submit" [disabled]="loginForm.invalid">Login</button>
 </form>

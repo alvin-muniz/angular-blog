@@ -6,3 +6,15 @@
   height: 100%;
   width: 100%
 }
+
+nav {
+  background-color: lightslategrey;
+  height: 100%;
+  width: 250px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+
+}

@@ -1,1 +1,27 @@
 <p>post-form works!</p>
+
+<div class="container" [ngSwitch]="postForm.controls['enabled'].value">
+
+  <div *ngSwitchCase="false">
+    <h1>Form is not enabled initially!</h1>
+  </div>
+  <div *ngSwitchCase="true">
+    <h1>Form is enabled!</h1>
+
+    <form [formGroup]="postForm" (ngSubmit)="savePost()">
+      <button type="submit" [disabled]="postForm.invalid">Save Post</button>
+      <span class="field-label">Title</span>
+      <input name="title" type="text"
+             required formControlName="title"
+      >
+
+      <span class="field-label">Content</span>
+      <input name="content" type="text" formControlName="content"
+      >
+
+      <span class="field-label">Content</span>
+      <input name="date" type="date" formControlName="date">
+
+    </form>
+  </div>
+</div>

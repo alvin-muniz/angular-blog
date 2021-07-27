@@ -8,7 +8,7 @@ import { PostListComponent } from './post-list/post-list.component';
 import { AdminComponent } from './admin/admin.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './admin/login/login.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { PostFormComponent } from './admin/post-form/post-form.component';
 
@@ -26,7 +26,8 @@ import { PostFormComponent } from './admin/post-form/post-form.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

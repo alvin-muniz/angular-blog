@@ -8,16 +8,18 @@
   <div *ngSwitchCase="true">
     <h1>Form is enabled!</h1>
 
-    <form [formGroup]="postForm" (ngSubmit)="savePost()">
+    <form id="post-form" class="form-group" [formGroup]="postForm"
+          (ngSubmit)="savePost()">
       <button type="submit" [disabled]="postForm.invalid">Save Post</button>
       <span class="field-label">Title</span>
-      <input name="title" type="text"
+      <input id="post-title" name="title" type="text"
              required formControlName="title"
       >
 
       <span class="field-label">Content</span>
-      <input name="content" type="text" formControlName="content"
-      >
+      <textarea id="post-content" name="content" type="text"
+             formControlName="content"
+      ></textarea>
 
       <span class="field-label">Content</span>
       <input name="date" type="date" formControlName="date">

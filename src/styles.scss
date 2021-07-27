@@ -12,4 +12,29 @@ body {
   grid-template-columns: repeat(10, 1fr);
 }
 
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group input {
+  height: 50px;
+  width: 350px;
+  border-bottom: black 1px solid;
+  margin-bottom: 25px;
+}
+
+.form-group button {
+  width: 75px;
+  height: 35px;
+  background-color: yellow;
+}
+
+
+.form-group .field-label {
+  color: gray;
+  font-size: x-small;
+  margin-bottom: 10px;
+}
+
 

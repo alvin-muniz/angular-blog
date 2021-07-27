@@ -7,28 +7,5 @@
   width: 100%;
 }
 
-#login-form {
-  display: flex;
-  flex-direction: column;
-}
 
-#login-form input {
-  height: 50px;
-  width: 350px;
-  border-bottom: black 1px solid;
-  margin-bottom: 25px;
-}
-
-#login-form button {
-  width: 75px;
-  height: 35px;
-  background-color: yellow;
-}
-
-
-#login-form .field-label {
-  color: gray;
-  font-size: x-small;
-  margin-bottom: 10px;
-}
 

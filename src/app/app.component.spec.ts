@@ -83,8 +83,6 @@ describe('AppComponent', () => {
     component.user = {username: 'alvin', password: 'hello'} as UserModel;
     fixture.detectChanges();
 
-    console.log(component.user);
-
     spyOn(fixture.componentInstance, 'logout');
 
     const element = fixture.nativeElement;

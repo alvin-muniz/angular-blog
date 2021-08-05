@@ -14,7 +14,8 @@ export class AppComponent implements OnInit, OnDestroy{
   user: UserModel | null = null;
   userEventsSubscription: Subscription | null = null;
 
-  public constructor(private userService: UserService) {
+  public constructor(private userService: UserService,
+                     private postService: PostService) {
   }
 
   ngOnInit(): void {

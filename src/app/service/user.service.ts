@@ -26,21 +26,10 @@ export class UserService {
   loginUser(loginRequest: LoginRequestModel):  Observable<JwtResponse>  {
    return this.http
       .post<JwtResponse>(`${(this.BASE_URL)}/auth/users/login`, loginRequest);
-     // .subscribe((response) => {
-     //   console.log(response, 'by itself ');
-     //
-     //   // const currentUser = {
-     //   //   username: loginRequest.username,
-     //   //   token: response.jwt,
-     //   // };
-     //   this.storeLoggedInUser(currentUser);
-     //   this.userEvents.next(currentUser);
-     // }, error => console.log(error));
   }
 
   storeLoggedInUser(user: UserModel): void {
     this.userEvents.next(user);
-    console.log(user, 'storelogged in user');
     this.httpInterceptor.setJwtToken(user.token);
     window.localStorage.setItem('loggedInUser', JSON.stringify(user));
   }

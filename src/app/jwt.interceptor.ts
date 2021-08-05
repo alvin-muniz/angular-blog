@@ -8,25 +8,39 @@ import {
 import { Observable } from 'rxjs';
 
 // TODO: Provide the interceptor in root
+
+interface JwtResponse {
+  jwt: string;
+}
+
 @Injectable({providedIn: 'root'})
 export class JwtInterceptor implements HttpInterceptor {
 
   // TODO token variables to store the results
-  token: string | null = null;
+  token: JwtResponse | null = null;
 
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     // if a token is present, then set it to the header
+
     if ( this.token ) {
-      const clone = request.clone({ setHeaders: {Authorization: `Bearer ${this.token}` } });
+      console.log(this.token.jwt, 'print');
+      const clone = request.clone({ setHeaders: {Authorization: `Bearer ${this.token.jwt}` } });
+      console.log(clone, 'Interceptor Headers');
       return next.handle(clone);
     }
     return next.handle(request);
   }
 
   setJwtToken(token: string): void {
-    this.token = token;
+    const responseToken = {
+      jwt: token
+    } as JwtResponse;
+
+
+    console.log(responseToken.jwt);
+    this.token = responseToken;
   }
 
   removeJwtToken(): void {
@@ -34,3 +48,5 @@ export class JwtInterceptor implements HttpInterceptor {
   }
 
 }
+
+

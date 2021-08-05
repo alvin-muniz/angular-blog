@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostService} from '../service/post.service';
 
 @Component({
   selector: 'app-post-detail-view',

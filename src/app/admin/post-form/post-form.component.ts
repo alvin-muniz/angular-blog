@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {PostService} from '../../service/post.service';
+import {PostModel} from '../../api-interface/post.model';
+import {JwtInterceptor} from '../../jwt.interceptor';
 
 @Component({
   selector: 'app-post-form',
@@ -15,9 +18,10 @@ export class PostFormComponent implements OnInit {
 
 
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private postService: PostService,
+              private httpInterceptor: JwtInterceptor) {
     this.titleControl = fb.control('', [Validators.required, Validators.minLength(5)]);
-    this.contentControl = fb.control('', [Validators.required, Validators.minLength(1200)]);
+    this.contentControl = fb.control('', [Validators.required, Validators.minLength(10)]);
     this.dateControl = fb.control('', [Validators.required]);
 
 
@@ -35,7 +39,20 @@ export class PostFormComponent implements OnInit {
   }
 
   savePost(): void {
-    console.log('post is saved');
+    let post: PostModel;
+    post = {
+      content: this.postForm.controls['content'].value,
+      title: this.postForm.controls['title'].value,
+      date: this.postForm.controls['date'].value
+    } as PostModel;
+
+    this.postService.savePost(post).subscribe(
+      retrievedPost => {
+        console.log(retrievedPost);
+      }
+    )
+    ;
+
   }
 
 }

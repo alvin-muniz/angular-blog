@@ -40,6 +40,29 @@ export class LoginComponent implements OnInit, OnDestroy, OnChanges {
     this.userEventsSubscription?.unsubscribe();
   }
 
+  loginUser(): void {
+    this.userService.loginUser(
+      {
+        username: this.loginRequest.username,
+        password: this.loginRequest.password
+      }
+    )
+      .subscribe(response => {
+          const currentUser = {
+            username: this.loginRequest.username,
+            token: response.jwt,
+          };
+          this.userService.storeLoggedInUser(currentUser);
+          this.userService.userEvents.next(currentUser);
+          this.router.navigate(['admin']);
+        },
+        error => {
+          this.authenticationFailed = true;
+          console.log('ERROR!')
+        }
+      );
+  }
+
   authenticate(): void {
     this.userService.authenticate({
       username: this.loginRequest.username,

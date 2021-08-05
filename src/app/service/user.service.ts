@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {JwtInterceptor} from '../jwt.interceptor';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {UserModel} from '../api-interface/user.model';
 import {tap} from 'rxjs/operators';
+import {JwtResponse, LoginRequestModel} from '../api-interface/login-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +12,30 @@ import {tap} from 'rxjs/operators';
 export class UserService {
   userEvents = new BehaviorSubject<UserModel | null>(null);
 
+  BASE_URL = 'http://localhost:9092';
+
   // injecting the client and the interceptor
   constructor(private http: HttpClient, private httpInterceptor: JwtInterceptor) {
 
   }
 
-  authenticate(loginRequest: {username: string; password: string}): Observable<string> {
-    return this.http.post<string>(`http://localhost:9092/auth/users/login`, loginRequest)
-      .pipe(tap((authToken) => {
+  authenticate(loginRequest: LoginRequestModel): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(`http://localhost:9092/auth/users/login`, loginRequest);
+  }
 
-        const user = {
-          username: loginRequest.username,
-          password: loginRequest.password,
-          token: authToken,
-          id: 1
-        } as UserModel;
-        this.storeLoggedInUser(user);
-        console.log(user.token);
-      }));
+  loginUser(loginRequest: LoginRequestModel):  Observable<JwtResponse>  {
+   return this.http
+      .post<JwtResponse>(`${(this.BASE_URL)}/auth/users/login`, loginRequest);
+     // .subscribe((response) => {
+     //   console.log(response, 'by itself ');
+     //
+     //   // const currentUser = {
+     //   //   username: loginRequest.username,
+     //   //   token: response.jwt,
+     //   // };
+     //   this.storeLoggedInUser(currentUser);
+     //   this.userEvents.next(currentUser);
+     // }, error => console.log(error));
   }
 
   storeLoggedInUser(user: UserModel): void {

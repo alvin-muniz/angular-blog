@@ -9,8 +9,11 @@ import { AdminComponent } from './admin/admin.component';
 import { ContentComponent } from './content/content.component';
 import { LoginComponent } from './admin/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { PostFormComponent } from './admin/post-form/post-form.component';
+import {UserService} from './service/user.service';
+import {PostService} from './service/post.service';
+import {JwtInterceptor} from './jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,15 @@ import { PostFormComponent } from './admin/post-form/post-form.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    UserService,
+    PostService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useExisting:  JwtInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostService} from '../service/post.service';
 import {PostModel} from '../api-interface/post.model';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-post-detail-view',
@@ -9,12 +10,11 @@ import {PostModel} from '../api-interface/post.model';
 })
 export class PostDetailViewComponent implements OnInit {
 
-  date?: string;
+  @Input() currentPost?: PostModel | null;
+
   constructor() { }
 
   ngOnInit(): void {
-    this.date = new Date().toDateString();
-
   }
 
 }

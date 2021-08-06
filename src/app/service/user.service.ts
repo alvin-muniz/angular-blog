@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {UserModel} from '../api-interface/user.model';
 import {tap} from 'rxjs/operators';
-import {JwtResponse, LoginRequestModel} from '../api-interface/login-request.model';
+import {LoginResponse, LoginRequestModel} from '../api-interface/login-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,13 +19,13 @@ export class UserService {
 
   }
 
-  authenticate(loginRequest: LoginRequestModel): Observable<JwtResponse> {
-    return this.http.post<JwtResponse>(`http://localhost:9092/auth/users/login`, loginRequest);
+  authenticate(loginRequest: LoginRequestModel): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`http://localhost:9092/auth/users/login`, loginRequest);
   }
 
-  loginUser(loginRequest: LoginRequestModel):  Observable<JwtResponse>  {
+  loginUser(loginRequest: LoginRequestModel): Observable<LoginResponse>  {
    return this.http
-      .post<JwtResponse>(`${(this.BASE_URL)}/auth/users/login`, loginRequest);
+      .post<LoginResponse>(`${(this.BASE_URL)}/auth/users/login`, loginRequest);
   }
 
   storeLoggedInUser(user: UserModel): void {
@@ -49,5 +49,4 @@ export class UserService {
     this.httpInterceptor.removeJwtToken();
   }
 
-  // authenticate
 }

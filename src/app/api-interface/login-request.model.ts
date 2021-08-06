@@ -3,6 +3,7 @@ export interface LoginRequestModel {
   password: string;
 }
 
-export interface JwtResponse {
+export interface LoginResponse {
   jwt: string;
+  id: number;
 }

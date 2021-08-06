@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy, OnChanges {
           const currentUser = {
             username: this.loginRequest.username,
             token: response.jwt,
+            id: response.id
           };
           this.userService.storeLoggedInUser(currentUser);
           this.userService.userEvents.next(currentUser);
@@ -58,7 +59,7 @@ export class LoginComponent implements OnInit, OnDestroy, OnChanges {
         },
         error => {
           this.authenticationFailed = true;
-          console.log('ERROR!')
+          console.log('ERROR!');
         }
       );
   }

@@ -10,7 +10,7 @@ import {Subscription} from 'rxjs';
 })
 export class PostDetailViewComponent implements OnInit {
 
-  @Input() currentPost?: PostModel | null;
+  @Input() currentPost: PostModel = {} as PostModel;
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-<h1></h1>
+<div *ngIf="!currentPost; else showPosts">
 <h1 id="title">Make your first post!</h1>
 <h2 id="post-date">First Post</h2>
 <p id="content">
@@ -11,13 +11,13 @@
          checked>
   <label for="taskTwo">GUI Changelog to show changes over time, basically
     an internal time tracking system</label>
-
-
 </p>
-<div *ngIf="currentPost">
+</div>
+
+<ng-template #showPosts>
 <h1 id="title">{{currentPost.title}}</h1>
-<h2 id="post-date">{{currentPost.date}}</h2>
+<h2 id="post-date">{{currentPost.date | date }}</h2>
   <p id="content">
  {{currentPost.content}}
   </p>
-</div>
+</ng-template>

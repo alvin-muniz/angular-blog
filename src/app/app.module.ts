@@ -14,6 +14,7 @@ import { PostFormComponent } from './admin/post-form/post-form.component';
 import {UserService} from './service/user.service';
 import {PostService} from './service/post.service';
 import {JwtInterceptor} from './jwt.interceptor';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {JwtInterceptor} from './jwt.interceptor';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   providers: [
     UserService,

@@ -29,7 +29,11 @@ export class ContentComponent implements OnInit {
         console.log(retrievedPosts, 'Retrieved Posts');
         this.currentPostListEvents.next(retrievedPosts);
         this.currentPostList = retrievedPosts;
-        this.currentPost = this.currentPostList[0];
+        if (this.currentPostList.length > 0) {
+          console.log(this.currentPost, 'Current Post on initialization');
+          this.currentPost = this.currentPostList[0];
+        }
+        console.log(this.currentPost, 'Current Post on initialization');
       }
     );
   }

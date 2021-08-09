@@ -10,11 +10,22 @@ import {Subscription} from 'rxjs';
 })
 export class PostDetailViewComponent implements OnInit {
 
-  @Input() currentPost: PostModel = {} as PostModel;
+  @Input() currentPost: PostModel | null = null;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    console.log(this.currentPost, 'in detail view');
+  }
+
+  currentPostEmpty(): boolean {
+    const emptyPost = {} as PostModel;
+    console.log(this.currentPost?.id);
+    console.log(emptyPost.id);
+    const result = this.currentPost?.id === emptyPost.id ? true : false;
+    console.log(result, 'equality');
+    return result;
   }
 
 }

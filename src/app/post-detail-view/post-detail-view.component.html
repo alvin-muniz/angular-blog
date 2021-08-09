@@ -1,8 +1,15 @@
-<div *ngIf="!currentPost; else showPosts">
+<div
+  style="
+    display: grid;
+    grid-template-columns: inherit;
+    grid-column: span 10;
+"
+
+  *ngIf="currentPostEmpty(); else showPosts">
 <h1 id="title">Make your first post!</h1>
 <h2 id="post-date">First Post</h2>
-<p id="content">
-  Future tasks for completion:
+  <div id = "content">
+    Future tasks for completion:
   <input type="checkbox" id="taskOne"
          checked>
   <label for="taskOne">GUI Changelog to show changes over time, basically
@@ -11,13 +18,13 @@
          checked>
   <label for="taskTwo">GUI Changelog to show changes over time, basically
     an internal time tracking system</label>
-</p>
+  </div>
 </div>
 
 <ng-template #showPosts>
-<h1 id="title">{{currentPost.title}}</h1>
-<h2 id="post-date">{{currentPost.date | date }}</h2>
+<h1 id="title">{{currentPost?.title}}</h1>
+<h2 id="post-date">{{currentPost?.date | date }}</h2>
   <p id="content">
- {{currentPost.content}}
+ {{currentPost?.content}}
   </p>
 </ng-template>

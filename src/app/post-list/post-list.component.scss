@@ -1,13 +1,2 @@
-:host {
-  height: 70px;
-  width: inherit;
-  color: white;
-  background-color: black;
-  margin: 10px 0 0 0;
-  display: flex;
-  grid-row-start: 2;
-  grid-column-start: 9;
-  grid-column: span 0;
-  justify-content: center;
+@import "src/styles.scss";
 
-}

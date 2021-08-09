@@ -1,7 +1,6 @@
 <app-post-detail-view [currentPost]="currentPost"></app-post-detail-view>
 <div class="list-container" >
-  <ng-container *ngFor="let number of [1,2,3,4,5]">
-    <app-post-list class="list"
-                   [currentPostList]="currentPostList"></app-post-list>
-  </ng-container>
+    <app-post-list
+                   [currentPostList]="currentPostList">
+    </app-post-list>
 </div>

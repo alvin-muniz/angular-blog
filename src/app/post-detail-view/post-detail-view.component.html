@@ -21,11 +21,17 @@
     an internal time tracking system</label>
   </div>
 </div>
-
 <ng-template #showPosts>
+<div  style="
+    display: grid;
+    grid-template-columns: inherit;
+    grid-column: span 10;
+    grid-template-rows: 1fr 8fr 1fr;
+">
 <h1 id="title">{{currentPost?.title}}</h1>
 <h2 id="post-date">{{currentPost?.date | date }}</h2>
   <p id="content">
  {{currentPost?.content}}
   </p>
+</div>
 </ng-template>

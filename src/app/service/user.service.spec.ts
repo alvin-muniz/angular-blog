@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { UserService } from './user.service';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {JwtInterceptor} from '../jwt.interceptor';
-import {UserModel} from '../api-interface/user.model';
+import {of} from 'rxjs';
 
 
 describe('UserService', () => {
@@ -19,6 +19,11 @@ describe('UserService', () => {
     id: 1,
     username: 'alvin',
     password: '12345',
+    token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'
+  };
+
+  const loginResponse = {
+    id: 1,
     token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'
   };
 
@@ -42,25 +47,11 @@ describe('UserService', () => {
   });
 
   it('should authenticate a user', () => {
-    // check that the method that stores the user is called
-    spyOn(userService, 'storeLoggedInUser');
     const loginRequest = {username: 'alvin', password: '12345'};
-    let actualUser: UserModel | undefined;
-    userService.authenticate(loginRequest).subscribe(authToken =>
-    {
-      actualUser = {
-        username: loginRequest.username,
-        password: loginRequest.password,
-        token: authToken,
-        id: 1
-      } as UserModel;
-    });
-
+    userService.authenticate(loginRequest).subscribe(authToken => {});
     const req = http.expectOne({method: 'POST', url: 'http://localhost:9092/auth/users/login'});
     expect(req.request.body).toEqual(loginRequest);
-    req.flush('eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo');
-    expect(actualUser).withContext('The observable should emit the user').toEqual(user);
-    expect(userService.storeLoggedInUser).toHaveBeenCalledWith(user);
+    req.flush(of(loginResponse));
   });
 
   it('should store the logged in user', () => {

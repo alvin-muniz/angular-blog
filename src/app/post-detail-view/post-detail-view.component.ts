@@ -16,15 +16,11 @@ export class PostDetailViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.currentPost, 'in detail view');
   }
 
   currentPostEmpty(): boolean {
     const emptyPost = {} as PostModel;
-    console.log(this.currentPost?.id);
-    console.log(emptyPost.id);
     const result = this.currentPost?.id === emptyPost.id ? true : false;
-    console.log(result, 'equality');
     return result;
   }
 

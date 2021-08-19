@@ -24,14 +24,12 @@ export class PostService {
   }
 
   savePost(post: PostModel): Observable<PostModel> {
-    console.log('in the post service');
     return this.http.post<PostModel>(`${this.DEV_URL}/admin/posts`, post);
   }
 
 
   retrievePosts(): Observable<PostModel[]> {
     if (this.user) {
-      console.log('user');
       return this.http.get<PostModel[]>(`${this.DEV_URL}/admin/posts/${this.user?.id}`);
     } else {
       return this.http.get<PostModel[]>(`${this.DEV_URL}/posts`);

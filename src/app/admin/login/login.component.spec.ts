@@ -4,33 +4,55 @@ import { LoginComponent } from './login.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {UserModel} from '../../api-interface/user.model';
+import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
+import {UserService} from '../../service/user.service';
+import {Router} from '@angular/router';
+import {LoginRequestModel, LoginResponse} from '../../api-interface/login-request.model';
 
 describe('LoginComponent', () => {
+  const fakeRouter = jasmine.createSpyObj<Router>('Router', ['navigate']);
+  // const fakeUserService = jasmine.createSpyObj<UserService>
+  const fakeUserService = {
+    userEvents: new BehaviorSubject<UserModel | null>(null),
+    logout: () => {},
+    retrieveUser: () => {},
+    storeLoggedInUser(user: UserModel): void {
+    },
+    loginUser(loginRequest: LoginRequestModel): Observable<LoginResponse> {
+      return of({
+        id: 1,
+        jwt: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'
+      }as LoginResponse);
+    },
+    authenticate(loginRequest: LoginRequestModel): Observable<LoginResponse> {
+      return of({
+        id: 1,
+        jwt: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'
+      }as LoginResponse);
+    }
+  } as UserService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() =>
+      TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ LoginComponent ]
+      declarations: [ LoginComponent ],
+      providers: [
+        {provide: UserService, useValue: fakeUserService},
+        {provide: Router, useValue: fakeRouter }
+      ]
     })
-    .compileComponents();
-  });
+  );
 
   beforeEach(() => {
-
+    fakeRouter.navigate.calls.reset();
+    // fakeUserService.authenticate.calls.reset();
   });
 
   it('should create', () => {
     const fixture = TestBed.createComponent(LoginComponent);
     const componentInstance = fixture.componentInstance;
     expect(componentInstance).toBeTruthy();
-  });
-
-  it('should have a title', () => {
-    const fixture = TestBed.createComponent(LoginComponent);
-    // triggering change detection after creating the component
-    const element = fixture.nativeElement;
-    expect(element.querySelector('h1')).withContext('The template should have an h1 tag').not.toBeNull();
-    expect(element.querySelector('h1').textContent).withContext('The title should be `Log in`').toContain('Log in');
   });
 
   it('should have loginRequest field', () => {
@@ -93,5 +115,87 @@ describe('LoginComponent', () => {
       .toBe(true);
   }));
 
+  it('should call the user service and redirect if successful', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+    const subject = new Subject<UserModel>();
+
+    spyOn(fakeUserService, 'authenticate').and.callThrough();
+
+    const componentInstance = fixture.componentInstance;
+    componentInstance.loginRequest.username = 'login';
+    componentInstance.loginRequest.password = 'password';
+
+    componentInstance.authenticate();
+
+    expect(fakeUserService.authenticate).toHaveBeenCalledWith(componentInstance.loginRequest);
+
+    subject.next({} as UserModel );
+
+    expect(componentInstance.authenticationFailed)
+      .withContext('You should have a field `authenticationFailed` set to false if registration succeeded')
+      .toBe(false);
+    expect(fakeRouter.navigate).toHaveBeenCalledWith(['admin']);
+
+
+  });
+
+  it('should login the user and call user service', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+    const subject = new Subject<UserModel>();
+
+    spyOn(fakeUserService, 'loginUser').and.callThrough();
+    spyOn(fakeUserService, 'storeLoggedInUser').and.callThrough();
+    spyOn(fakeUserService.userEvents, 'next').withArgs(({username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'})).and.callThrough();
+    const componentInstance = fixture.componentInstance;
+    componentInstance.loginRequest.username = 'login';
+    componentInstance.loginRequest.password = 'password';
+
+    componentInstance.loginUser();
+
+    expect(fakeUserService.loginUser).toHaveBeenCalledWith(componentInstance.loginRequest);
+    expect(fakeUserService.storeLoggedInUser).toHaveBeenCalledWith(
+      {username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'}
+    );
+
+    expect(fakeUserService.userEvents.next).toHaveBeenCalledWith(
+      ({username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'})
+    );
+
+
+    // subject.next({username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'} as UserModel );
+
+    expect(componentInstance.user).toEqual({username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'});
+    expect(componentInstance.authenticationFailed)
+      .withContext('You should have a field `authenticationFailed` set to false if registration succeeded')
+      .toBe(false);
+    expect(fakeRouter.navigate).toHaveBeenCalledWith(['admin']);
+
+
+  });
+
+  it('should listen to userEvents in ngOnInit', () => {
+    const component = new LoginComponent(fakeUserService, fakeRouter);
+    component.ngOnInit();
+
+    const user = {username: 'login', id: 1, token: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.5cAW816GUAg3OWKWlsYyXI4w3fDrS5BpnmbyBjVM7lo'} as UserModel;
+
+    fakeUserService.userEvents.next(user);
+
+    fakeUserService.userEvents.subscribe(() => {
+      expect(component.user).withContext('Your component should listen to the `userEvents` observable').toEqual(user);
+    });
+
+  });
+
+  it('should unsubscribe on destroy', () => {
+    const component = new LoginComponent(fakeUserService, fakeRouter);
+    component.ngOnInit();
+    spyOn(component.userEventsSubscription!, 'unsubscribe');
+    component.ngOnDestroy();
+
+    expect(component.userEventsSubscription!.unsubscribe).toHaveBeenCalled();
+  });
 
 });

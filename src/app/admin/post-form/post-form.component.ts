@@ -48,7 +48,6 @@ export class PostFormComponent implements OnInit {
 
     this.postService.savePost(post).subscribe(
       retrievedPost => {
-        console.log(retrievedPost);
       }
     )
     ;

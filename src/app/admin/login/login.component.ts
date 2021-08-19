@@ -9,7 +9,7 @@ import {UserModel} from '../../api-interface/user.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy, OnChanges {
+export class LoginComponent implements OnInit, OnDestroy {
 
   authenticationFailed = false;
 
@@ -28,12 +28,6 @@ export class LoginComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.userEventsSubscription = this.userService.userEvents
       .subscribe(user => (this.user = user));
-
-    console.log(this.user, 'current user in session shoudl be null');
-  }
-
-  ngOnChanges(): void {
-    console.log(this.user, 'on changes');
   }
 
   ngOnDestroy(): void {
@@ -59,7 +53,6 @@ export class LoginComponent implements OnInit, OnDestroy, OnChanges {
         },
         error => {
           this.authenticationFailed = true;
-          console.log('ERROR!');
         }
       );
   }

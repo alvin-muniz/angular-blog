@@ -25,9 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
     // if a token is present, then set it to the header
 
     if ( this.token ) {
-      console.log(this.token.jwt, 'print');
       const clone = request.clone({ setHeaders: {Authorization: `Bearer ${this.token.jwt}` } });
-      console.log(clone, 'Interceptor Headers');
       return next.handle(clone);
     }
     return next.handle(request);
@@ -38,8 +36,6 @@ export class JwtInterceptor implements HttpInterceptor {
       jwt: token
     } as JwtResponse;
 
-
-    console.log(responseToken.jwt);
     this.token = responseToken;
   }
 

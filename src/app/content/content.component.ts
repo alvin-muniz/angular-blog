@@ -16,7 +16,6 @@ export class ContentComponent implements OnInit {
   currentPostListEvents =  new BehaviorSubject<PostModel[] | null>(null);
 
   constructor(private postService: PostService) {
-
   }
 
   ngOnInit(): void {
@@ -26,14 +25,11 @@ export class ContentComponent implements OnInit {
   loadPosts(): void {
     this.postService.retrievePosts().subscribe(
       retrievedPosts => {
-        console.log(retrievedPosts, 'Retrieved Posts');
         this.currentPostListEvents.next(retrievedPosts);
         this.currentPostList = retrievedPosts;
         if (this.currentPostList.length > 0) {
-          console.log(this.currentPost, 'Current Post on initialization');
           this.currentPost = this.currentPostList[0];
         }
-        console.log(this.currentPost, 'Current Post on initialization');
       }
     );
   }
